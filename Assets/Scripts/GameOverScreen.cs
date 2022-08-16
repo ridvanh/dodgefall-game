@@ -14,9 +14,13 @@ public class GameOverScreen : MonoBehaviour
         gameObject.SetActive(true);
         points.text = "Score: " + scoreText.score.text;
         int playerScore = int.Parse(scoreText.score.text);
-        if (playerScore < 20)
+        if (playerScore < scoreText.Highscore)
         {
             GameObject.Find("newHighscoreText").SetActive(false);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Highscore", playerScore);
         }
     }
     
