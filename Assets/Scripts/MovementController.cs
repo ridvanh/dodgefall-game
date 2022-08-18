@@ -183,6 +183,7 @@ public class MovementController : Player
         }
     }
     
+    /*
     private void OnTriggerEnter2D(Collider2D other)
     {
         if ((other.gameObject.tag == "Fireball"))
@@ -190,6 +191,5 @@ public class MovementController : Player
             animController.PlayHurtAnim();
             Health = Health - 1;
         }
-    }
-    
+    }*/
 }

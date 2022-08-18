@@ -11,7 +11,6 @@ public class Fireball : MonoBehaviour
     
     public float fallingSpeed;
     
-    
     private void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
@@ -23,15 +22,13 @@ public class Fireball : MonoBehaviour
     void Update()
     {
         rigidBody.velocity = new Vector2(0, -fallingSpeed);
-        
     }
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Platform" || other.gameObject.tag == "Fall Detector" || other.gameObject.tag == "Shield")
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Platform" || other.gameObject.tag == "Fall Detector" || other.gameObject.tag == "Shield" || other.gameObject.tag == "Heart")
         {
             Destroy(gameObject);
         }
     }
-    
 }

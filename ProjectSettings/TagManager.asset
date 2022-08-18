@@ -7,6 +7,8 @@ TagManager:
   - Platform
   - Fireball
   - Fall Detector
+  - Shield
+  - Heart
   layers:
   - Default
   - TransparentFX

@@ -7,14 +7,9 @@ public class HealthBar : Player
 {
     
     public SpriteRenderer sprtRenderer;
-    public MovementController player;
+    public Health player;
     public Sprite[] sprites;
-
-    private void Awake()
-    {
-        
-    }
-
+    
     void Update()
     {
         HandleHpBar();

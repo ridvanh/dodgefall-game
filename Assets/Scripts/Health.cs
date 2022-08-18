@@ -27,7 +27,12 @@ public class Health : MovementController
         }
         else if ((other.gameObject.tag == "Fireball"))
         {
+            animController.PlayHurtAnim();
             Health = Health - 1;
+        }
+        else if (other.gameObject.tag == "Heart" && Health != 5)
+        {
+            Health++;
         }
     }
 }
