@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     
     public GameObject spawnObject;
     public GameObject fallingObject;
-    public GameObject fallingHeart;
 
     public Player player;
     
@@ -26,8 +25,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Pixel width :" + cam.pixelWidth + " Pixel height : " + cam.pixelHeight);
         SpawnPlatforms();
         StartCoroutine("FireballRoutine", delayTime);
-        StartCoroutine("HomingRoutine", 0.75f);
-        StartCoroutine("HeartRoutine", 1f);
+        StartCoroutine("HomingRoutine", 0.5f);
     }
     
     void SpawnPlatforms()
@@ -83,28 +81,4 @@ public class GameManager : MonoBehaviour
         GameObject fireball = Instantiate(fallingObject, new Vector3(xPos, yPos), Quaternion.identity);
     }
 
-    IEnumerator HeartRoutine(float time)
-    {
-        while (player.GetComponent<MovementController>().Health > 0)
-        {
-            yield return new WaitForSeconds(time);
-
-            var randomizer = Random.Range(1, 5);
-            if (randomizer == 1)
-            {
-                SpawnHeart();
-                yield return new WaitForSeconds(10);
-            }
-        }
-    }
-
-    void SpawnHeart()
-    {
-        float xPos = Random.Range(-13f, 13f);
-        float yPos = 6.5f;
-        
-        GameObject heart = Instantiate(fallingHeart, new Vector3(xPos, yPos), Quaternion.identity);
-    }
-
-    
 }
