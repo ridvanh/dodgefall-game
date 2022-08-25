@@ -9,6 +9,8 @@ public class GameOverScreen : MonoBehaviour
     public bool isRestarted = false;
     public Score scoreText;
     public Text points;
+    public GameManager gameManager;
+
     public void Setup()
     {
         gameObject.SetActive(true);

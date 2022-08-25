@@ -2,12 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+    
+    public GameState gameState;
+
+    public GameOverScreen goScreen;
+    
     public Platform startingPlatform;
     public int platformNumber;
     
@@ -16,20 +23,29 @@ public class GameManager : MonoBehaviour
     public GameObject fallingHeart;
 
     public Player player;
+
+    public Text pauseText;
     
     public float delayTime;
 
     public Camera cam;
-    
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
         Debug.Log("Pixel width :" + cam.pixelWidth + " Pixel height : " + cam.pixelHeight);
-        SpawnPlatforms();
-        StartCoroutine("FireballRoutine", delayTime);
-        StartCoroutine("HomingRoutine", 0.75f);
-        StartCoroutine("HeartRoutine", 1f);
+        ChangeGameState(GameState.StartGame);
     }
-    
+
+    private void Update()
+    {
+        PauseGame();
+    }
+
     void SpawnPlatforms()
     {
 
@@ -106,5 +122,56 @@ public class GameManager : MonoBehaviour
         GameObject heart = Instantiate(fallingHeart, new Vector3(xPos, yPos), Quaternion.identity);
     }
 
+    void PauseGame()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && gameState == GameState.Unpaused)
+        {
+            ChangeGameState(GameState.Paused);
+            pauseText.gameObject.SetActive(true);
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && gameState == GameState.Paused)
+        {
+            ChangeGameState(GameState.Unpaused);
+            pauseText.gameObject.SetActive(false);
+        }
+    }
+
     
+
+    public void ChangeGameState(GameState newState)
+    {
+        gameState = newState;
+        switch (newState)
+        {
+            case GameState.MainMenu:
+                break;
+            case GameState.StartGame:
+                SpawnPlatforms();
+                StartCoroutine("FireballRoutine", delayTime);
+                StartCoroutine("HomingRoutine", 0.75f);
+                StartCoroutine("HeartRoutine", 1f);
+                ChangeGameState(GameState.Unpaused);
+                break;
+            case GameState.Paused:
+                Time.timeScale = 0;
+                break;
+            case GameState.Unpaused:
+                Time.timeScale = 1;
+                break;
+            case GameState.EndGame:
+                goScreen.Setup();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
+        }
+    }
+}
+
+public enum GameState
+{
+    MainMenu,
+    StartGame,
+    Paused,
+    Unpaused,
+    EndGame
 }

@@ -8,6 +8,7 @@ public class SkillBarController : MonoBehaviour
     
     public Image cooldownImage;
     public float cooldown = 3;
+    public Text readyText;
     private bool isOnCooldown;
     void Update()
     {
@@ -18,6 +19,7 @@ public class SkillBarController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            readyText.gameObject.SetActive(false);
             isOnCooldown = true;
         }
 
@@ -27,6 +29,7 @@ public class SkillBarController : MonoBehaviour
 
             if (cooldownImage.fillAmount >= 1)
             {
+                readyText.gameObject.SetActive(true);
                 cooldownImage.fillAmount = 0;
                 isOnCooldown = false;
             }

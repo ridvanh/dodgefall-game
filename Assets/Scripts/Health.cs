@@ -4,16 +4,13 @@ using UnityEngine.UI;
 
 public class Health : MovementController
 {
-
-    public GameOverScreen goScreen;
-    
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Fall Detector")
         {
             animController.PlayDeathAnim();
             Destroy(gameObject);
-            goScreen.Setup();
+            GameManager.Instance.ChangeGameState(GameState.EndGame);
         }
     }
 
@@ -23,7 +20,7 @@ public class Health : MovementController
         {
             animController.PlayDeathAnim();
             Destroy(gameObject);
-            goScreen.Setup();
+            GameManager.Instance.ChangeGameState(GameState.EndGame);
         }
         else if ((other.gameObject.tag == "Fireball"))
         {
