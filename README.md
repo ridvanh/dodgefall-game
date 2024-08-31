@@ -1,5 +1,7 @@
 # dodgefall-game
-2D game based dodging the fireballs
+2D highscore game based dodging the fireballs
+
+Play: https://wandire.itch.io/dodgefall
 
 # Assets used in this project
 Fireball(other frames and animations of fireball are made by myself): https://opengameart.org/content/2d-pixel-fire-sprite-strip
